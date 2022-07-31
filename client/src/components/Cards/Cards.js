@@ -1,9 +1,10 @@
 import Card from "../Card/Card";
-
+import styles from "./Cards.module.css"; 
 function Cards({pokemons}){
-    console.log(pokemons)
+    // console.log(pokemons)
 return(
-<div>
+<div className={styles.container}>
+<div className={styles.cards}>
 
 {pokemons.map(pokemon=>(
     <div key={pokemon.id}>
@@ -15,12 +16,13 @@ return(
         type={pokemon.type}
         />
     </div>
+    
     ))}
 
 
 </div>
 
-
+</div>
 )
 }
 

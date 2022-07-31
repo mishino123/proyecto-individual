@@ -3,7 +3,7 @@ const router = express.Router();
 
 const axios = require('axios');
 const { restart } = require('nodemon');
-const limit=8;
+const limit=20;
 
 const apipoke=async()=>{
             try{

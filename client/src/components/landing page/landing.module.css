@@ -1,16 +1,19 @@
 .fondo{
-    background-image:url("../../images/1280x720.jpg");
+    background-image:url("../../images/1039414.png");
     background-size: auto;  /* para que es el bakcground - size? que me hace en la imagen*/
     position:absolute;
     left:0;
     right: 0;
     top: 0;
     bottom: 0;
- 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
 }
 .buton{
     color:blue;
     position:relative;
-    align: left;
+    
   
 }

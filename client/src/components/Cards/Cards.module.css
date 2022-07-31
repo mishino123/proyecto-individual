@@ -1,0 +1,29 @@
+.cards{
+    position:relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-content: center;
+    grid-column-gap: 50px;
+    grid-row-gap: 50px;
+  
+}
+.container{
+ 
+    width: 80%;  /*tu ancho tiene que ser esto*/
+    height: auto;  /*tu altura tiene que ser esto*/
+    position: absolute;
+    background-color: white;
+    padding: 40px 40px 0px 5px;
+    left:10%;
+    display: flex;
+    justify-content:center;
+    grid-template-columns: 1fr;
+    grid-template-rows: 48% 40%;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    opacity: 0.9;
+   
+}
+h1{
+    text-align: center;
+}

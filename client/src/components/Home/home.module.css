@@ -1,0 +1,13 @@
+.container{
+
+    background-image:url("../../images/1060624.png");
+     /* para que es el bakcground - size? que me hace en la imagen*/
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    overflow:auto;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:auto;
+}

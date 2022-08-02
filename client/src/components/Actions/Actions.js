@@ -1,6 +1,6 @@
 
 import { GET_API_POKEMON,GET_DETAILS_POKEMON,ORDER_BY_NAME,
-  GET_POKEMON_BY_NAME,GET_TYPES,POST_POKEMON} from "./Typesactions";
+  GET_POKEMON_BY_NAME,GET_TYPES,POST_POKEMON,FILTER_CREATED,FILTER_BY_TYPE} from "./Typesactions";
 import axios from "axios";
 
 export const GetPokemon = () => {
@@ -37,7 +37,6 @@ export const GetPokemon = () => {
   export const orderByName = (payload) => {
     return { type: ORDER_BY_NAME,
              payload
-    
     };
   };
 
@@ -64,3 +63,20 @@ export const GetPokemon = () => {
     }
        
   }
+
+  export const filterCreated=(payload)=>{
+    return({
+      type:FILTER_CREATED,
+      payload
+    })
+       
+}
+
+
+export const filterbyType=(payload)=>{
+  return({
+    type:FILTER_BY_TYPE,
+    payload
+  })
+     
+}

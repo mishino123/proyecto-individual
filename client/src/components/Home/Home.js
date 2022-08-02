@@ -1,7 +1,7 @@
 
 import React from "react";
 import {connect} from "react-redux"
-import {GetPokemon,orderByName} from "../../components/Actions/Actions";
+import {GetPokemon,orderByName,filterCreated,filterbyType} from "../../components/Actions/Actions";
 import Cards from "../Cards/Cards";
 import styles from "./home.module.css";
 import {useState} from "react"
@@ -36,6 +36,18 @@ function hadleSort(e){
   setOrder(`ordenado: ${e.target.value}`)
 }
 
+function hadleOrderCreate(e){
+  e.preventDefault();
+  dispatch(filterCreated(e.target.value))
+
+}
+
+function hadleFilterType(e){
+  e.preventDefault();
+  dispatch(filterbyType(e.target.value))
+
+}
+
   return(
     <div className={styles.container}>
        <h2>Home</h2>
@@ -45,15 +57,32 @@ function hadleSort(e){
           <option value="asc">A-Z</option>
           <option value="des">Z-A</option>
         </select>
-        <select name="Type">
+        <select onChange={(e=>hadleFilterType(e))}>
+           <option value="All">all</option>
           <option value="normal">normal</option>
           <option value="fighting">fighting</option>
-          <option value="flying">flying</option>
           <option value="poison">poison</option>
+          <option value="ground">ground</option>
+          <option value="flying">flying</option>
+          <option value="rock">rock</option>
+          <option value="ghost">ghost</option>
+          <option value="steel">steel</option>
+          <option value="fire">fire</option>
+          <option value="water">water</option>
+          <option value="grass">grass</option>
+          <option value="bug">bug</option>
+          <option value="electric">electric</option>
+          <option value="ice">ice</option>
+          <option value="dragon">dragon</option>
+          <option value="dark">dark</option>
+          <option value="fairy">fairy</option>
+          <option value="unknown">unknown</option>
+          <option value="shadow">shadow</option>
         </select>
-        <select name="import">
-          <option value="normal">Imported</option>
-          <option value="fighting">Created</option>
+        <select onChange={(e=>hadleOrderCreate(e))}>
+             <option value="All">all</option>
+             <option value="api">api</option>
+             <option value="created">Created</option>
         </select>
      
       

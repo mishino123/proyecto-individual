@@ -3,7 +3,7 @@ const router = express.Router();
 const {Pokemon,Types} =require("../db");
 const axios = require('axios');
 const { restart } = require('nodemon');
-const limit=20;
+const limit=4;
 
 const apipoke=async()=>{
             try{
@@ -164,7 +164,7 @@ router.post('/',async(req,res)=>{
         where: {name:  typespoke}
     })
     pokemonCreate.addTypes(typesPokemon)
-    res.send("personaje creado con exito");
+    res.send("personaje creado con exito")
 
  })
 

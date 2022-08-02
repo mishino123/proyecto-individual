@@ -7,6 +7,7 @@ import styles from "./home.module.css";
 import {useState} from "react"
 import Pagination from "../pagination/Pagination";
 import { useDispatch } from "react-redux";
+import SearchBar from "../searchBar/SearchBar";
 function mapStateToProps(state){
   return {
     pokemones:state.pokemons
@@ -38,6 +39,7 @@ function hadleSort(e){
   return(
     <div className={styles.container}>
        <h2>Home</h2>
+       <SearchBar/>
        <Pagination  pokemones={props.pokemones} pokemonsPerPage={pokemonsPerPage} pokePage={pokePage}/>
         <select onChange={(e=>hadleSort(e))}>
           <option value="asc">A-Z</option>
@@ -53,9 +55,7 @@ function hadleSort(e){
           <option value="normal">Imported</option>
           <option value="fighting">Created</option>
         </select>
-      <p>Busqueda por nombre <input type="search" placeholder="only for name"></input>
-      <input type="submit" value="search"/>
-      </p>
+     
       
         <div>
         <Cards pokemons={pokemonsview}/>

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const {Pokemon,Types} =require("../db");
 const axios = require('axios');
 const { restart } = require('nodemon');
 const limit=20;
@@ -30,21 +30,51 @@ const apipoke=async()=>{
        
     }
     return pokemons
-   // console.log(pokemons)
+   console.log(pokemons)
 }catch(error){
     return console.log("no se puede leer")
 }
 }
-const pokes=apipoke()
-router.get('/',async(req,res)=>{
-    allPokemons=await apipoke();
-    console.log(allPokemons);
-    return res.json(allPokemons);
+// const pokes=apipoke()
+// router.get('/',async(req,res)=>{
+//     allPokemons=await apipoke();
+//     console.log(allPokemons);
+//     return res.json(allPokemons);
 
-})
+// })
 
+const getDbinfo=async()=>{
+      let datbase= await Pokemon.findAll({
+        include:{
+            model: Types,
+            attributes:["name"],
+            through: {
+                attributes:[],
+            }
+        }
+      })
 
+      let response=await datbase.map(pokemon=>{
+        return {
+                id:pokemon.id,
+                name: pokemon.name,
+                weight: pokemon.weight,
+                CreateinDb: pokemon.CreateinDb,
+                image:pokemon.image,
+                type:pokemon.Types.map(type=>type.name)
+        }
 
+      }
+      )
+     return response;
+}
+
+const getAllpokemons=async()=>{
+       const apipokemon=await apipoke();
+       const dbpokemon=await getDbinfo();
+       const allpokemons=apipokemon.concat(dbpokemon);
+       return allpokemons;
+}
 
 
 const detailspoke=async(name)=>{
@@ -67,6 +97,7 @@ const detailspoke=async(name)=>{
                          height:detail.height,
                          weight: detail.weight,
                          stats:stadistics,
+                         type:detail.types.map(e=>{return e.type.name} )
                      }
         console.log(details)
         return details
@@ -86,11 +117,56 @@ router.get('/:id',async(req,res)=>{
 //*****************pokemon por name****************/
 
 router.get('/',async(req,res)=>{
-   const name=req.query;
-   console.log(name)
-   const detailpokemon= await detailspoke({name});
-   return res.json(detailpokemon);
+   const name=req.query.name;
+   let getpokemons=await getAllpokemons()
+   console.log(getpokemons)
+   if(name){
+    let searchName=await getpokemons.filter(el=>el.name.toLowerCase().includes(name))
+    searchName.length?
+    res.status(200).send(searchName):
+    res.status(400).send("no se encontro el personaje")
+   }else{
+    res.status(200).send(getpokemons)
+    console.log("no hay name")
+   }
 })
-//*************************************************/
+//********************post Pokemon*************************/
+router.post('/',async(req,res)=>{
+    const {
+        name,
+        image,
+        height,
+        weight,
+        hp,
+        attack,
+        defense,
+        special_attack,
+        special_defense,
+        speed,
+        typespoke,
+        CreateinDb
+    }=req.body;
+     console.log(name)
+    let pokemonCreate=await Pokemon.create({
+        name,
+        image,
+        height,
+        weight,
+        hp,
+        attack,
+        defense,
+        special_attack,
+        special_defense,
+        speed,
+        CreateinDb
+    })
+    let typesPokemon=await Types.findAll({
+        where: {name:  typespoke}
+    })
+    pokemonCreate.addTypes(typesPokemon)
+    res.send("personaje creado con exito");
+
+ })
+
 
 module.exports = router

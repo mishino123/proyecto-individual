@@ -25,7 +25,7 @@ let detail=useSelector(store=>store.pokemondetails)
 
 {/***************************************** */}
           <div className={styles.characteristics} >
-       
+        <p>Types:  {detail.type?.toString()}</p>
         <p>weight: {detail.weight}</p>
         <p>height: {detail.height}</p> 
         <h3>stats</h3>

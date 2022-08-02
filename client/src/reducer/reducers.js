@@ -1,5 +1,5 @@
 
-import {GET_API_POKEMON,GET_DETAILS_POKEMON,ORDER_BY_NAME} from "../components/Actions/Typesactions";
+import {GET_API_POKEMON,GET_DETAILS_POKEMON,ORDER_BY_NAME,GET_POKEMON_BY_NAME,GET_TYPES,POST_POKEMON} from "../components/Actions/Typesactions";
 const inicialState={
     pokemons:[],
     pokemondetails:[],
@@ -37,8 +37,25 @@ function rootReducer(state=inicialState,action){
                   return {
                         ...state, pokemons:sorArray
                   }
+            case GET_POKEMON_BY_NAME:
+                  return{
+                        ...state,pokemons:action.payload
+                  }
+            case POST_POKEMON:
+                       
+                  return{
+                              ...state
+                        }
 
+            case GET_TYPES:
+                       
+                        return{
+                              ...state,  types:action.payload
+                        }
+                 
             default: return{...state}
+
+
       }
       
       }

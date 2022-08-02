@@ -1,6 +1,7 @@
 
-import { GET_API_POKEMON,GET_DETAILS_POKEMON,ORDER_BY_NAME } from "./Typesactions";
-
+import { GET_API_POKEMON,GET_DETAILS_POKEMON,ORDER_BY_NAME,
+  GET_POKEMON_BY_NAME,GET_TYPES,POST_POKEMON} from "./Typesactions";
+import axios from "axios";
 
 export const GetPokemon = () => {
     return async function (dispatch) {
@@ -20,9 +21,46 @@ export const GetPokemon = () => {
       return fetch("http://localhost:3001/pokemons/"+id).then((response)=>response.json()).then(r=>dispatch({type:GET_DETAILS_POKEMON, payload: r}))
     };
   };
+
+  export const getpokemonbyName=(name)=>{
+    return async function(dispatch){
+      try{
+          var respuesta=await axios.get(`http://localhost:3001/pokemons?name=${name}`)
+          return dispatch({type:GET_POKEMON_BY_NAME, payload:respuesta.data})
+      }catch(error){
+         console.log("pokemon no encontrado")
+      }
+    }
+  }
+
+
   export const orderByName = (payload) => {
     return { type: ORDER_BY_NAME,
              payload
     
     };
   };
+
+  export const getTypesPokemon=()=>{
+    return async function(dispatch){
+      try{
+          var respuesta=await axios.get(`http://localhost:3001/types`)
+          return dispatch({type:GET_TYPES, payload:respuesta.data})
+      }catch(error){
+         console.log("No se recibiio nada de la base de datos")
+      }
+    }
+  }
+
+  
+  export const postPokemon=(payload)=>{
+    console.log(payload)
+    return async function (dispatch){
+     let respuesta=await axios.post("http://localhost:3001/pokemons/",payload)
+
+      return{payload:respuesta} 
+  
+      
+    }
+       
+  }

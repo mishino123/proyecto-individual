@@ -103,7 +103,7 @@ __IMPORTANTE__: No se permitirá utilizar librerías externas para aplicar estil
 
 Se debe desarrollar una aplicación de React/Redux que contenga las siguientes pantallas/rutas.
 
-__Pagina inicial__: deben armar una landing page con
+__Pagina inicial__: deben armar una landing page con OK
 
 - [ ] Alguna imagen de fondo representativa al proyecto
 - [ ] Botón para ingresar al home (`Ruta principal`)
@@ -112,12 +112,12 @@ __Ruta principal__: debe contener
 
 - [ ] Input de búsqueda para encontrar pokemons por nombre (La búsqueda será exacta, es decir solo encontrará al pokemon si se coloca el nombre completo)
 - [ ] Área donde se verá el listado de pokemons. Al iniciar deberá cargar los primeros resultados obtenidos desde la ruta `GET /pokemons` y deberá mostrar su:
-  - Imagen
-  - Nombre
-  - Tipos (Electrico, Fuego, Agua, etc)
+  - Imagen  OK
+  - Nombre  OK
+  - Tipos (Electrico, Fuego, Agua, etc)  OK
 - [ ] Botones/Opciones para filtrar por tipo de pokemon y por pokemon existente o creado por nosotros
-- [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente los pokemons por orden alfabético y por ataque
-- [ ] Paginado para ir buscando y mostrando los siguientes pokemons, 12 pokemons por pagina.
+- [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente los pokemons por orden alfabético y por ataque OK POR NOMBRE FALTA POR ATAQUE 
+- [ ] Paginado para ir buscando y mostrando los siguientes pokemons, 12 pokemons por pagina.OK
 
 __IMPORTANTE__: Dentro de la Ruta Principal se deben mostrar tanto los pokemons traidos desde la API como así también las de la base de datos. Por otro lado, si revisan el endpoint que trae todos los pokemons verán que no muestra la información del pokemon sino una URL para hacer un subrequest y obtener los datos de allí. Tendrán que por cada pokemon que van a mostrar hacer otro request a esa URL para obtener su imagen y tipos. Debido a que esto puede hacer que la búsqueda sea muy lenta limitar el resultado total a 40 pokemons totales.
 

@@ -32,6 +32,7 @@
 .image{
     display: flex;   
     flex-direction: column;
+    height:300px ;
 }
 
 .characteristics{
@@ -52,6 +53,14 @@
     opacity: 0.8;
     backdrop-filter: blur(20px);
 
+    
+  
+}
+
+.buton{
+    color:blue;
+    position:relative;
+    margin-top:50px
     
   
 }

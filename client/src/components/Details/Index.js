@@ -4,6 +4,7 @@ import { useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {useSelector} from "react-redux";
 import styles from "./detail.module.css";
+import { Link } from "react-router-dom";
 
 function Details(props){
     const id=props.match.params.id;
@@ -14,7 +15,9 @@ let detail=useSelector(store=>store.pokemondetails)
 
    return(
     <div key={detail.id} className={styles.body}>
-            
+    <Link to="/pokemons">
+    <button className={styles.buton}>Regresar</button>
+    </Link>
         <div className={styles.container}>
 {/***************************************** */}
              

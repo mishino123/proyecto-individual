@@ -14,7 +14,7 @@ function App() {
       <Route exact path="/" component={Landingpage}/>
       <Route exact path="/pokemons" component={Home}/>
       <Route exact path="/pokemons/:id" component={details}/>
-      <Route exact path="/create" component={CreatePokemon}/>
+      <Route exact path="/createpokemon" component={CreatePokemon}/>
     </div>
   );
 }

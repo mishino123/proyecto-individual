@@ -1,7 +1,7 @@
 
 import React from "react";
 import {connect} from "react-redux"
-import {GetPokemon,orderByName,filterCreated,filterbyType} from "../../components/Actions/Actions";
+import {GetPokemon,orderByName,filterCreated,filterbyType,orderByattack } from "../../components/Actions/Actions";
 import Cards from "../Cards/Cards";
 import styles from "./home.module.css";
 import {useState} from "react"
@@ -36,6 +36,14 @@ function hadleSort(e){
   setOrder(`ordenado: ${e.target.value}`)
 }
 
+
+function hadleSortAttack(e){
+  e.preventDefault();
+  dispatch(orderByattack (e.target.value))//
+  setPage(1)
+  setOrder(`ordenado: ${e.target.value}`)//
+}
+
 function hadleOrderCreate(e){
   e.preventDefault();
   dispatch(filterCreated(e.target.value))
@@ -48,14 +56,27 @@ function hadleFilterType(e){
 
 }
 
+function hadleRefresh(e){
+  e.preventDefault();
+  dispatch(GetPokemon())
+
+}
   return(
     <div className={styles.container}>
+      <div class Name={styles.home}>
        <h2>Home</h2>
+       <button onClick={hadleRefresh} >Refresh</button>
+       </div>
        <SearchBar/>
        <Pagination  pokemones={props.pokemones} pokemonsPerPage={pokemonsPerPage} pokePage={pokePage}/>
         <select onChange={(e=>hadleSort(e))}>
           <option value="asc">A-Z</option>
           <option value="des">Z-A</option>
+        </select>
+
+        <select onChange={(e=>hadleSortAttack(e))}>
+          <option value="asc"> minor attack</option>
+          <option value="des"> biggest attack</option>
         </select>
         <select onChange={(e=>hadleFilterType(e))}>
            <option value="All">all</option>

@@ -7,7 +7,7 @@ const limit=4;
 
 const apipoke=async()=>{
             try{
-                const respuesta=await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}`)
+                const respuesta=await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}`);
                 const response=respuesta.data.results
                 const pokemons=[];
                     for(let i=0;i<response.length;i++){
@@ -25,6 +25,7 @@ const apipoke=async()=>{
                      weight:poke.weight,
                      type:alltypes,
                     image:poke.sprites.other.dream_world.front_default,
+                    attack:poke.stats[1].base_stat,
                         }
         pokemons.push(pokemon)
        
@@ -61,7 +62,8 @@ const getDbinfo=async()=>{
                 weight: pokemon.weight,
                 CreateinDb: pokemon.CreateinDb,
                 image:pokemon.image,
-                type:pokemon.Types.map(type=>type.name)
+                type:pokemon.Types.map(type=>type.name),
+                attack:pokemon.attack
         }
 
       }
@@ -72,7 +74,7 @@ const getDbinfo=async()=>{
 const getAllpokemons=async()=>{
        const apipokemon=await apipoke();
        const dbpokemon=await getDbinfo();
-       const allpokemons=apipokemon.concat(dbpokemon);
+       const allpokemons=await apipokemon.concat(dbpokemon);
        return allpokemons;
 }
 
@@ -99,17 +101,78 @@ const detailspoke=async(name)=>{
                          stats:stadistics,
                          type:detail.types.map(e=>{return e.type.name} )
                      }
-        console.log(details)
+        // console.log(details)
         return details
     }catch(error){
       console.log("error")
     }
 }
+
+const getDbByName=async(name)=>{
+
+    let datbase= await Pokemon.findAll({
+        include:{
+            model: Types,
+            attributes:["name"],
+            through: {
+                attributes:[],
+            }
+        }
+      })
+      let responseName=await datbase.filter(pokemon=>pokemon.name===name)
+      console.log(responseName)
+      const cliente=await responseName.map(e=>{
+        return {
+            id:e.id,
+            name:e.name,
+            image:e.image,
+            height:e.height,
+            weight: e.weight,
+            type: e.Types.map(type=>type.name),
+            stats:[{name:"hp",base:e.hp},{name:"attack",base:e.attack},{name:"defense",base:e.defense},
+            {name:" special_attack",base:e.special_attack}, {name:"special_defense",base:e.special_defense},{name:"speed",base:e.speed}]
+        }
+      })
+       const dato1=await cliente[0];
+    return dato1;
+    
+
+    
+
+}
+const getAllpokemonsByname=async(name)=>{
+    const apipokemonByName=await detailspoke(name);
+    const dbpokemon=await getDbByName(name);
+    total_response=0;
+    if (apipokemonByName===undefined && dbpokemon!==undefined){
+        total_response=dbpokemon
+    }
+    if (dbpokemon===undefined && apipokemonByName!==undefined){
+        total_response=apipokemonByName
+    }
+
+
+   console.log(total_response)
+
+
+    return total_response;
+}
+
+
+
+
+
+
+
+
+
+
 //*****************pokemon por id****************/
 router.get('/:id',async(req,res)=>{
      const {id}=req.params
    
-    const detailpokemon=await detailspoke(id);
+    const detailpokemon=await getAllpokemonsByname(id);
+    console.log(detailpokemon)
     return res.json(detailpokemon);
 
 })
@@ -127,7 +190,7 @@ router.get('/',async(req,res)=>{
     res.status(400).send("no se encontro el personaje")
    }else{
     res.status(200).send(getpokemons)
-    console.log("no hay name")
+    console.log("no hay name");
    }
 })
 //********************post Pokemon*************************/

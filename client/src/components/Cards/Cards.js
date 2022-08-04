@@ -14,6 +14,7 @@ return(
         image={pokemon.image}
         weight={pokemon.weight}
         type={pokemon.type}
+        attack={pokemon.attack}
         />
     </div>
     

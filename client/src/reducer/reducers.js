@@ -1,5 +1,5 @@
 
-import {GET_API_POKEMON,GET_DETAILS_POKEMON,ORDER_BY_NAME,GET_POKEMON_BY_NAME,GET_TYPES,POST_POKEMON,FILTER_CREATED,FILTER_BY_TYPE} from "../components/Actions/Typesactions";
+import {GET_API_POKEMON,GET_DETAILS_POKEMON,ORDER_BY_NAME,GET_POKEMON_BY_NAME,GET_TYPES,POST_POKEMON,FILTER_CREATED,FILTER_BY_TYPE,FILTER_BY_ATACK} from "../components/Actions/Typesactions";
 const inicialState={
     pokemons:[],
     pokemondetails:[],
@@ -19,6 +19,8 @@ function rootReducer(state=inicialState,action){
             case GET_DETAILS_POKEMON:
              return{
                    ...state,pokemondetails:action.payload}
+
+
             case ORDER_BY_NAME:
                   let sorArray=action.payload==="asc"?
                   state.pokemons.sort((a,b)=>{
@@ -39,6 +41,12 @@ function rootReducer(state=inicialState,action){
                   return {
                         ...state, pokemons:sorArray
                   }
+
+
+
+
+
+
             case GET_POKEMON_BY_NAME:
                   return{
                         ...state,pokemons:action.payload
@@ -70,6 +78,41 @@ function rootReducer(state=inicialState,action){
                               ...state,  pokemons:action.payload==="All"? state.Allpokemons:filtertype,
                                }           
                         
+
+
+                    
+                               case FILTER_BY_ATACK:
+                                    let sorArrayattack=action.payload==="asc"?
+                                    state.pokemons.sort((a,b)=>{
+                                          if(a.attack>b.attack){
+                                                return 1;
+                                          }if(a.attack<b.attack){
+                                                return -1;
+                                          }
+                                              return 0;
+                                    }): state.pokemons.sort((a,b)=>{
+                                          if(a.attack>b.attack){
+                                                return -1;
+                                          }if(a.attack<b.attack){
+                                                return 1;
+                                          }
+                                              return 0;
+                                    })
+                                    return {
+                                          ...state, pokemons:sorArrayattack
+                                    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                               

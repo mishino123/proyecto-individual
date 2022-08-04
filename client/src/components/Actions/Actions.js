@@ -1,6 +1,6 @@
 
 import { GET_API_POKEMON,GET_DETAILS_POKEMON,ORDER_BY_NAME,
-  GET_POKEMON_BY_NAME,GET_TYPES,POST_POKEMON,FILTER_CREATED,FILTER_BY_TYPE} from "./Typesactions";
+  GET_POKEMON_BY_NAME,GET_TYPES,POST_POKEMON,FILTER_CREATED,FILTER_BY_TYPE,FILTER_BY_ATACK} from "./Typesactions";
 import axios from "axios";
 
 export const GetPokemon = () => {
@@ -80,3 +80,9 @@ export const filterbyType=(payload)=>{
   })
      
 }
+
+export const orderByattack = (payload) => {
+  return { type: FILTER_BY_ATACK,
+           payload
+  };
+};
